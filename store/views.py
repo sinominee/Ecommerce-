@@ -13,8 +13,6 @@ from rest_framework.decorators import action
 # from rest_framework import generics
 from .pagination import CustomPagination
 
-
-
 # TO BACKUP:  python -Xutf8 dumpdata > backup.json  
 # TO LOADUP BACKUP: python manage.py loaddata backup.json
 

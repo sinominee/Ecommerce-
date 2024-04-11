@@ -41,8 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'core',
     'store',
     'rest_framework',
+    'rest_framework.authtoken',    
     "debug_toolbar",
     'drf_yasg',
 ]
@@ -146,3 +148,4 @@ INTERNAL_IPS = [
     # ...
 ]
 
+AUTH_USER_MODEL="core.User"
