@@ -3,6 +3,12 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth import authenticate #login, logout
 from rest_framework.authtoken.models import Token
+from .serializers import *
+
+# from django.conf import settings
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 from django.contrib import messages
 # Create your views here.
@@ -20,10 +26,22 @@ def login(request):
             'user':user.get_username(),
             'token':token.key
         })
+    # messages.success(request, "You have been Logged in successfully")
+    return Response('invalid')
 
 
-        messages.success(request, "You have been Logged in successfully")
-        return redirect ('invalid')
+@api_view(['POST'])
+def register(request):
+    serializer = UserSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+    email = serializer.validated_data.get('email')
+    password = serializer.validated_data.get('password')
+    # conform_password = serializer.validated_data.get('conform_password')
+    user=User.objects.create_user(email=email, password=password)
 
+    if user:
+        return Response('user has been created')
+    return Response("Something went wrong")
 
-
+    # email=request.data.get('email')
+    # settings.AUTH_USER_MODEL.objects.filter(email=email).exists()    
